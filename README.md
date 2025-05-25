@@ -1,8 +1,5 @@
 # MinesweeperGUI – projekt
 
-**Grupi liikmed:**  
-Hannes Jaakson, Morris Tann
-
 ---
 
 ## 1 · Lühikokkuvõte
