@@ -36,7 +36,7 @@ Programmi saab käivitada: MinesweeperGUI -> build -> Desktop_Qt_6_9_0_MinGW_64_
    - Ilmub teade **“Kaotus”**  
 
 5. **Võit:**  
-   - Kui kõik miinid on lipustatud ja ohutud ruudud avatud  
+   - Kui kõik ohutud ruudud avatud  
    - Ilmub teade **“Võit”**  
 
 ---
