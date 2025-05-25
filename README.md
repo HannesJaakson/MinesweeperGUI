@@ -17,6 +17,8 @@ Programmi eesmärk on pakkuda lihtsat, lõbusat ajaviidet ning demonstreerida:
 
 ## 2 · Programmi töö
 
+Programmi saab käivitada: MinesweeperGUI -> build -> Desktop_Qt_6_9_0_MinGW_64_bit-Release -> MinesweeperGUI.exe
+
 1. Käivitumisel avaneb **ConfigDialog**, kus saab määrata:  
    - **Read** – ridade arv (5–40)  
    - **Veerud** – veergude arv (5–40)  
