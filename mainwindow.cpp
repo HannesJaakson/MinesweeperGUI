@@ -4,10 +4,6 @@
 #include <QMessageBox>
 
 namespace {
-//  Võid vabalt muuta laua suurust ja miinide arvu siit.
-constexpr int READ   = 10;
-constexpr int VEERUD = 10;
-constexpr int MIINID = 10;
 
 // Numbrite värvikaart
 QString värvNumbrile(int n)
@@ -24,41 +20,49 @@ QString värvNumbrile(int n)
     default: return "black";
     }
 }
-}
 
-MainWindow::MainWindow(QWidget *vanem)
+} // anonymous namespace
+
+MainWindow::MainWindow(int read,
+                       int veerud,
+                       int miinid,
+                       QWidget *vanem)
     : QMainWindow(vanem)
     , ui(new Ui::MainWindow)
-    , laud(READ, VEERUD, MIINID)
+    , read_(read)
+    , veerud_(veerud)
+    , miinid_(miinid)
+    , laud(read_, veerud_, miinid_)
 {
     ui->setupUi(this);
+    setWindowTitle("Miiniväli");                 // ← akna nimi
 
-    // Paigutame nupud kesk‑widget'isse võrguna
+    // Paigutame nupud kesk-widget’isse võrguna
     paigutus = new QGridLayout(ui->centralwidget);
-    paigutus->setSpacing(0);                 // ruudud kõrvuti
-    paigutus->setContentsMargins(0, 0, 0, 0);// ei mingit tühja äärt
-    paigutus->setSizeConstraint(QLayout::SetFixedSize); // ruudustik ei veni
-    adjustSize();                                       // kahanda aken ruudustiku järgi
+    paigutus->setSpacing(0);                      // ruudud kõrvuti
+    paigutus->setContentsMargins(0, 0, 0, 0);     // ei mingit tühja äärt
+    paigutus->setSizeConstraint(QLayout::SetFixedSize);
 
+    nupud.resize(read_, std::vector<RuuduNupp*>(veerud_, nullptr));
 
-    /* ★★ */ paigutus->setSizeConstraint(QLayout::SetFixedSize);
-    /* ★★ */ adjustSize();
-
-
-    nupud.resize(READ, std::vector<RuuduNupp*>(VEERUD, nullptr));
-
-    for (int r = 0; r < READ; ++r) {
-        for (int v = 0; v < VEERUD; ++v) {
+    for (int r = 0; r < read_; ++r) {
+        for (int v = 0; v < veerud_; ++v) {
             auto *nupp = new RuuduNupp(r, v, this);
             nupud[r][v] = nupp;
             paigutus->addWidget(nupp, r, v);
 
-            connect(nupp, &RuuduNupp::vasakKlikk, this, &MainWindow::avaRuut);
-            connect(nupp, &RuuduNupp::paremKlikk, this, &MainWindow::lülitaLipp);
+            connect(nupp, &RuuduNupp::vasakKlikk,
+                    this,  &MainWindow::avaRuut);
+            connect(nupp, &RuuduNupp::paremKlikk,
+                    this,  &MainWindow::lülitaLipp);
         }
     }
 
     uuendaKõik();
+
+    // Nüüd, kui ruudustik on paigas, pane aken täpsesse suurusesse
+    adjustSize();
+    setFixedSize(sizeHint());                     // ← lukusta suurus
 }
 
 MainWindow::~MainWindow()
@@ -66,19 +70,19 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+// ----- Kasutaja interaktsioonid -----
+
 void MainWindow::avaRuut(int r, int v)
 {
     bool jätka = laud.avaRuut(r, v);
-    uuendaKõik(!jätka);      // kui miin, näita kõik miinid
+    uuendaKõik(!jätka);          // kui avati miin, näita kõik miinid
 
-    if (!jätka) {
+    if (!jätka) {                // kaotus
         mängLäbi(false);
         return;
     }
-
-    if (laud.kasVõit()) {
+    if (laud.kasVõit())          // võit
         mängLäbi(true);
-    }
 }
 
 void MainWindow::lülitaLipp(int r, int v)
@@ -86,6 +90,8 @@ void MainWindow::lülitaLipp(int r, int v)
     laud.lülitaLipp(r, v);
     uuendaRuut(r, v);
 }
+
+// ----- Värskendused -----
 
 void MainWindow::uuendaRuut(int r, int v)
 {
@@ -99,7 +105,7 @@ void MainWindow::uuendaRuut(int r, int v)
         stiil = "background:#5c5c5c; border:1px solid #3f3f3f;";
         break;
     case 'F': // Lipp
-        nupp->setText("\u2691");
+        nupp->setText(QString(QChar(0x2691)));     // Unicode FLAG
         stiil = "color:red; background:#5c5c5c; border:1px solid #3f3f3f;";
         break;
     case '*': // Miin
@@ -125,11 +131,12 @@ void MainWindow::uuendaRuut(int r, int v)
 
 void MainWindow::uuendaKõik(bool näitaMiinid)
 {
-    for (int r = 0; r < READ; ++r) {
-        for (int v = 0; v < VEERUD; ++v) {
+    for (int r = 0; r < read_; ++r) {
+        for (int v = 0; v < veerud_; ++v) {
             if (näitaMiinid && laud.onMiin(r, v)) {
                 nupud[r][v]->setText("✹");
-                nupud[r][v]->setStyleSheet("color:black; background:#5c5c5c; border:1px solid #3f3f3f;");
+                nupud[r][v]->setStyleSheet(
+                    "color:black; background:#5c5c5c; border:1px solid #3f3f3f;");
                 nupud[r][v]->setEnabled(false);
             } else {
                 uuendaRuut(r, v);
@@ -137,6 +144,8 @@ void MainWindow::uuendaKõik(bool näitaMiinid)
         }
     }
 }
+
+// ----- Mängu lõpp -----
 
 void MainWindow::mängLäbi(bool võit)
 {

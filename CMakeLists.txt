@@ -25,6 +25,8 @@ set(PROJECT_SOURCES
         Mang.cpp
         Ruut.h
         Ruut.cpp
+        configdialog.h
+        configdialog.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -32,6 +34,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         ruudunupp.h ruudunupp.cpp
+        configdialog.h configdialog.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET MinesweeperGUI APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

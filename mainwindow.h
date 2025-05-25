@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QGridLayout>
 #include <vector>
+
 #include "Laud.h"
 #include "ruudunupp.h"
 
@@ -16,8 +17,14 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *vanem = nullptr);
-    ~MainWindow();
+    /// @param read   ridade arv
+    /// @param veerud veergude arv
+    /// @param miinid miinide arv
+    explicit MainWindow(int read,
+                        int veerud,
+                        int miinid,
+                        QWidget *vanem = nullptr);
+    ~MainWindow() override;
 
 private slots:
     void avaRuut(int rida, int veerg);      // vasak klikk
@@ -28,11 +35,17 @@ private:
     void uuendaKõik(bool näitaMiinid = false);
     void mängLäbi(bool võit);
 
-    Ui::MainWindow *ui;
+    Ui::MainWindow *ui {nullptr};
+
+    // Mängulaua andmed
+    const int read_;
+    const int veerud_;
+    const int miinid_;
     Laud laud;
-    QGridLayout *paigutus{nullptr};
+
+    // Graafika
+    QGridLayout *paigutus {nullptr};
     std::vector<std::vector<RuuduNupp*>> nupud;
 };
 
 #endif // MAINWINDOW_H
-
