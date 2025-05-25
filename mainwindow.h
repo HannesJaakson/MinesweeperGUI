@@ -8,7 +8,8 @@
 #include "Laud.h"
 #include "ruudunupp.h"
 
-QT_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE  // Qt genereerib automaatselt vastava klassi ning see on eraldi namespace all
+                    //igaks juhuks, et ltida sama meetodi nimega konflikte
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
@@ -17,9 +18,6 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    /// @param read   ridade arv
-    /// @param veerud veergude arv
-    /// @param miinid miinide arv
     explicit MainWindow(int read,
                         int veerud,
                         int miinid,
@@ -27,7 +25,7 @@ public:
     ~MainWindow() override;
 
 private slots:
-    void avaRuut(int rida, int veerg);      // vasak klikk
+    void avaRuut(int rida, int veerg);  // vasak klikk
     void lülitaLipp(int rida, int veerg);   // parem klikk
 
 private:

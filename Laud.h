@@ -8,19 +8,17 @@ class Laud {
 public:
     Laud(int read, int veerud, int miinid);
 
-    // Ava ruut (r, v). Tagastab false, kui avati miin.
+    // Tagastab false, kui avati miin.
     bool avaRuut(int rida, int veerg);
 
-    // Lülita lipu/küsimärgi olekut
     void lülitaLipp(int rida, int veerg);
 
-    // Kas mäng on võidetud?
     bool kasVõit() const;
 
-    // Sümbol (vastavalt Ruut::kuva) antud koordinaadil – vajalik GUI‑le
+    // Sümbol (vastavalt Ruut::kuva) antud koordinaadil
     char kuva(int rida, int veerg) const;
 
-    // Kas ruut (r,v) sisaldab miini? (vajalik mängu lõpus kõigi miinide näitamiseks)
+    // Tagastab true kui on miin
     bool onMiin(int rida, int veerg) const;
 
     int ridadeArv() const { return read; }
@@ -35,9 +33,9 @@ private:
 
     std::vector<std::vector<Ruut>> ruudud;
 
-    // Arvutab ja salvestab kõikide ruutude naabermiinide koguse
+    // Arvutab ja salvestab kõikidele ruutudele (isend Ruut) naabermiinide koguse
     void arvutaNaabrid();
 
-    // Rekursiivne lahtiklapitus tühjade ruutudele
+    // Rekursiivselt avab kõik tühjad naaberruudud, kui kasutaja valis ruudu, kus naaberruut on tühi(naabermiinide arv 0)
     void laiendaTühjad(int r, int v);
 };

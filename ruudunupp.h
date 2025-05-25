@@ -2,8 +2,8 @@
 #include <QPushButton>
 #include <QMouseEvent>
 
-//  Üks lauaruut (QPushButton‑i alamklass), mis oskab eristada
-//  vasakut ja paremat klikki ning näidata avamata/avatud olekut
+//  Üks ruut/nupp (QPushButton‑i alamklass)
+//  eristab vasakut ja paremat klikki ning näitab avamata/avatud olekut
 //  selgete värvidega.
 class RuuduNupp : public QPushButton
 {
@@ -22,7 +22,6 @@ protected:
     void mousePressEvent(QMouseEvent *sündmus) override;
 
 private:
-    void värskendaStiil();
 
     int  rida_;
     int  veerg_;

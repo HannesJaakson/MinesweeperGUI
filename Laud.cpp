@@ -25,6 +25,7 @@ Laud::Laud(int read, int veerud, int miinid)
     arvutaNaabrid();
 }
 
+//Abimeetod
 bool Laud::piirides(int r, int v) const {
     return r >= 0 && r < read && v >= 0 && v < veerud;
 }

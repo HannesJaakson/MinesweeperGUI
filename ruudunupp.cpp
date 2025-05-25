@@ -3,16 +3,14 @@
 RuuduNupp::RuuduNupp(int rida, int veerg, QWidget *vanem)
     : QPushButton(vanem), rida_{rida}, veerg_{veerg}
 {
-    setFlat(true);                 // ilma süsteemi 3D‑servadeta
-    setFocusPolicy(Qt::NoFocus);   // ära näita fookusraami
-    setFixedSize(35, 35);          // täpselt naabriga kõrvuti
+    setFlat(false); // vaikimisi on kast ruumiline, seab mitte ruumiliseks
+    setFixedSize(35, 35); //Ühe nupu suurus
 
-    QFont f = font();     // võta nupu vaikefont
-    f.setPointSize(18);   // vali sobiv punktisuurus (nt 18 pt)
-    f.setBold(true);      // rasvane, et hästi paistaks
+    QFont f = font();     // vaikefont
+    f.setPointSize(20);   // märgiste suurus (numbrid, lipud, miinid)
+    f.setBold(true);      // paks või mitte
     setFont(f);
 
-    värskendaStiil();
 }
 
 void RuuduNupp::mousePressEvent(QMouseEvent *sündmus)
@@ -26,16 +24,5 @@ void RuuduNupp::mousePressEvent(QMouseEvent *sündmus)
 void RuuduNupp::seaAvatud(bool avatud)
 {
     avatud_ = avatud;
-    setEnabled(!avatud_);          // avatud ruutu enam ei vajutata
-    värskendaStiil();
-}
-
-void RuuduNupp::värskendaStiil()
-{
-    if (avatud_)
-        setStyleSheet("background:#fafafa; border:1px solid #8f8f8f;"
-                      "margin:0; padding:0; border-radius:0;");
-    else
-        setStyleSheet("background:#5c5c5c; border:1px solid #3f3f3f;"
-                      "margin:0; padding:0; border-radius:0;");
+    setEnabled(!avatud_); // avatud ruutu enam ei saa vajutada
 }

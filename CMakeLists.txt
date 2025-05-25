@@ -21,12 +21,12 @@ set(PROJECT_SOURCES
         RuuduNupp.h
         Laud.h
         Laud.cpp
-        Mang.h
-        Mang.cpp
         Ruut.h
         Ruut.cpp
         configdialog.h
         configdialog.cpp
+        Laud.cpp
+        Laud.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
