@@ -52,7 +52,6 @@ Programmi eesmärk on pakkuda lihtsat, lõbusat ajaviidet ning demonstreerida:
 | `Laud.*`         | mängulaua mudel: miinide asetus, avamine, võit      |
 | `Ruut.*`         | ühe ruudu olek                                      |
 | `ruudunupp.*`    | `QPushButton`-alamklass iga ruudu jaoks             |
-| `Mang.*`         | (kui kasutusel) lisaloogika                         |
 | `CMakeLists.txt` | projektikonfiguratsioon                             |
 | `README.md`      | see dokumentatsioonifail                            |
 
